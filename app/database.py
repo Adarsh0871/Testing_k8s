@@ -3,7 +3,8 @@ from sqlalchemy import create_engine, MetaData, Table, Column, String
 from databases import Database
 import asyncio
 
-DATABASE_URL = "postgresql+asyncpg://adarsh:Admin%40123@localhost:5432/adarsh"
+# Use the K8s service name `postgres` instead of localhost
+DATABASE_URL = "postgresql+asyncpg://adarsh:Admin%40123@postgres:5432/adarsh"
 database = Database(DATABASE_URL)
 metadata = MetaData()
 
@@ -14,6 +15,7 @@ users = Table(
     Column("password", String),
 )
 
+# Use the sync driver by replacing asyncpg with psycopg2 for create_engine
 engine = create_engine(DATABASE_URL.replace("asyncpg", "psycopg2"))
 metadata.create_all(engine)
 

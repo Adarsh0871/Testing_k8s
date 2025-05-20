@@ -6,3 +6,4 @@ databases[postgresql]
 python-multipart
 asyncpg
 psycopg2-binary
+passlib[bcrypt]
